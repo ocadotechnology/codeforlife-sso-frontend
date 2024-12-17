@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "args": [
+        "run",
+        "${relativeFile}"
+      ],
+      "autoAttachChildProcesses": true,
+      "console": "integratedTerminal",
+      "name": "Vitest: Current File",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "smartStep": true,
+      "type": "node"
+    },
+    {
+      "name": "Vite Server",
+      "preLaunchTask": "run",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:5173"
+    }
+  ],
+  "version": "0.2.0"
+}
