@@ -1,9 +1,0 @@
-runtime: REPLACE_IN_PIPELINE
-instance_class: F1
-service: REPLACE_IN_PIPELINE
-
-inbound_services:
-  - warmup
-
-build_env_variables:
-  GOOGLE_NODE_RUN_SCRIPTS: '' # https://cloud.google.com/appengine/docs/standard/nodejs/runtime#npm_build_script

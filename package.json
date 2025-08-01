@@ -11,22 +11,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "start": "serve -s dist",
-    "build": "tsc --build tsconfig.json && vite build",
-    "preview": "vite preview",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:verbose": "vitest run --reporter=verbose --coverage.thresholds.lines=90 --coverage.thresholds.functions=90 --coverage.thresholds.branches=90 --coverage.thresholds.statements=90",
-    "test:ui": "vitest --ui",
-    "format": "prettier --write .",
-    "format:check": "prettier --check --write=false .",
-    "lint": "eslint --max-warnings=0 .",
-    "lint:fix": "eslint --fix .",
-    "type-check": "tsc --build tsconfig.json"
+    "cli": "../scripts/frontend $@"
   },
   "dependencies": {
-    "codeforlife": "github:ocadotechnology/codeforlife-package-javascript#v2.3.0"
+    "codeforlife": "2.6.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -36,7 +24,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/js-cookie": "^3.0.3",
-    "@types/node": "^20.14.2",
+    "@types/node": "^22.14.1",
     "@types/qs": "^6.9.7",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
