@@ -11,6 +11,7 @@ export default defineConfig({
       codeforlife: path.resolve(__dirname, "./node_modules/codeforlife/src"),
     },
   },
+  envDir: "env",
   server: {
     open: true,
     host: true,

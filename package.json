@@ -6,7 +6,7 @@
     "🚫 Don't add `dependencies` below that are inherited from the CFL package.",
     "✅ Do add `devDependencies` below that are `peerDependencies` in the CFL package."
   ],
-  "name": "replace-me",
+  "name": "sso",
   "private": true,
   "version": "0.0.0",
   "type": "module",
