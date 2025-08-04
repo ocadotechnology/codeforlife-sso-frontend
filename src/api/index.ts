@@ -1,7 +1,7 @@
 import { createApi } from "codeforlife/api"
 
 const api = createApi({
-  tagTypes: ["Fruit"],
+  tagTypes: [],
 })
 
 export default api

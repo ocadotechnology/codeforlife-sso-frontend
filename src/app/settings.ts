@@ -3,6 +3,7 @@ import env from "codeforlife/settings"
 export * from "codeforlife/settings"
 
 export const {
-  // Example of how to get an environment variable.
-  EXAMPLE = "DEFAULT_VALUE",
+  // Links
+  LINK_CFL,
+  LINK_GOOGLE_LOGIN,
 } = env.vite

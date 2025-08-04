@@ -1,11 +1,12 @@
 import * as pages from "codeforlife/components/page"
+import { Stack, Typography } from "@mui/material"
 import { type FC } from "react"
+import { Google as GoogleIcon } from "@mui/icons-material"
 import { Image } from "codeforlife/components"
-import { Link } from "codeforlife/components/router"
-import { Typography } from "@mui/material"
+import { LinkButton } from "codeforlife/components/router"
 
+import { LINK_CFL, LINK_GOOGLE_LOGIN } from "../../app/settings"
 import CflLogoImage from "../../images/cfl_logo.png"
-import { paths } from "../../routes"
 
 export interface HomeProps {}
 
@@ -13,13 +14,29 @@ const Home: FC<HomeProps> = () => {
   return (
     <pages.Page>
       <pages.Section>
-        <Image src={CflLogoImage} alt="code for life logo" maxWidth="200px" />
-        <Typography variant="h1">Example web page</Typography>
-        <Typography>
-          This is an example of how you can create a web page. This example
-          consumes the backend-template&apos;s API.
-        </Typography>
-        <Link to={paths.fruits._}>Fruit list</Link>
+        <Stack direction="column">
+          <Image
+            src={CflLogoImage}
+            alt="code for life logo"
+            maxWidth="200px"
+            href={LINK_CFL}
+            hrefInNewTab
+          />
+          <Typography variant="h1">SSO Service</Typography>
+          <Typography>Log in with your Google Account.</Typography>
+          <LinkButton
+            to={LINK_GOOGLE_LOGIN}
+            sx={({ spacing }) => ({
+              padding: `${spacing(4)} ${spacing(5)}`,
+              fontSize: "1.2rem",
+              background: "black",
+              color: "white.main",
+            })}
+            startIcon={<GoogleIcon sx={{ fontSize: "30px !important" }} />}
+          >
+            Log in with Google
+          </LinkButton>
+        </Stack>
       </pages.Section>
     </pages.Page>
   )

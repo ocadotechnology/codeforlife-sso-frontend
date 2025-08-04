@@ -1,9 +1,5 @@
 import { path as _ } from "codeforlife/utils/router"
 
-const paths = _("", {
-  fruits: _("/fruits", {
-    id: _("/:id"),
-  }),
-})
+const paths = _("", {})
 
 export default paths
