@@ -1,12 +1,6 @@
-import fruit from "./fruit"
 import general from "./general"
 
-const routes = (
-  <>
-    {general}
-    {fruit}
-  </>
-)
+const routes = <>{general}</>
 
 export default routes
 export { default as paths } from "./paths"
