@@ -1,20 +1,24 @@
-import * as pages from "codeforlife/components/page"
-import { Stack, Typography } from "@mui/material"
-import { type FC } from "react"
-import { Google as GoogleIcon } from "@mui/icons-material"
-import { Image } from "codeforlife/components"
-import { LinkButton } from "codeforlife/components/router"
+import * as pages from "codeforlife/components/page";
+import { Stack, Typography } from "@mui/material";
+import { type FC } from "react";
+import { Image } from "codeforlife/components";
 
-import { LINK_CFL, LINK_GOOGLE_LOGIN } from "../../app/settings"
-import CflLogoImage from "../../images/cfl_logo.png"
+import { type OAuth2State, useOAuth2 } from "../../app/hooks";
+import CflLogoImage from "../../images/cfl_logo.png";
+import { LINK_CFL } from "../../app/settings";
+import { SignInWithGoogleButton } from "../../components";
+
+export interface HomeState extends OAuth2State {}
 
 export interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
+  const { state, codeChallenge } = useOAuth2();
+
   return (
     <pages.Page>
       <pages.Section>
-        <Stack direction="column">
+        <Stack direction="column" textAlign="center" alignItems="center">
           <Image
             src={CflLogoImage}
             alt="code for life logo"
@@ -23,23 +27,11 @@ const Home: FC<HomeProps> = () => {
             hrefInNewTab
           />
           <Typography variant="h1">SSO Service</Typography>
-          <Typography>Log in with your Google Account.</Typography>
-          <LinkButton
-            to={LINK_GOOGLE_LOGIN}
-            sx={({ spacing }) => ({
-              padding: `${spacing(4)} ${spacing(5)}`,
-              fontSize: "1.2rem",
-              background: "black",
-              color: "white.main",
-            })}
-            startIcon={<GoogleIcon sx={{ fontSize: "30px !important" }} />}
-          >
-            Log in with Google
-          </LinkButton>
+          <SignInWithGoogleButton state={state} />
         </Stack>
       </pages.Section>
     </pages.Page>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

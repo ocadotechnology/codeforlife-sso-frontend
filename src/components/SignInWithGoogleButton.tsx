@@ -1,5 +1,4 @@
 import { type FC } from "react"
-import { useNavigate } from "codeforlife/hooks"
 
 import {
   LINK_GOOGLE_LOGIN_CLIENT_ID,
@@ -15,8 +14,6 @@ export interface SignInWithGoogleButtonProps {
 
 // https://developers.google.com/identity/branding-guidelines#render-html-button
 const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({ state }) => {
-  const navigate = useNavigate()
-
   const params: Record<string, string> = {
     client_id: LINK_GOOGLE_LOGIN_CLIENT_ID,
     redirect_uri: LINK_GOOGLE_LOGIN_REDIRECT_URI,
@@ -35,7 +32,6 @@ const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({ state }) => {
 
   return (
     <>
-      {google_login_link}
       <style>{`
       .gsi-material-button {
         -moz-user-select: none;
@@ -143,10 +139,8 @@ const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({ state }) => {
       `}</style>
       <button
         className="gsi-material-button"
-        onClick={event => {
-          event.preventDefault()
-
-          navigate(google_login_link)
+        onClick={() => {
+          window.location.href = google_login_link
         }}
       >
         <div className="gsi-material-button-state"></div>
