@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material"
+import { type FC } from "react"
 
 import {
   LINK_GOOGLE_LOGIN_CLIENT_ID,
@@ -7,16 +8,22 @@ import {
   LINK_GOOGLE_LOGIN_SCOPE,
   LINK_GOOGLE_LOGIN_URL,
 } from "../app/settings"
-import { type UseOAuth2KwArgs, useOAuth2 } from "../app/hooks"
+import { useLoginWithGoogleMutation } from "../api/session"
+import { useOAuth2 } from "../app/hooks"
 
-export interface SignInWithGoogleButtonProps<ResultType>
-  extends UseOAuth2KwArgs<ResultType> {}
+export interface SignInWithGoogleButtonProps {}
 
 // https://developers.google.com/identity/branding-guidelines#render-html-button
-const SignInWithGoogleButton = <ResultType,>(
-  props: SignInWithGoogleButtonProps<ResultType>,
-): JSX.Element => {
-  const oAuth2 = useOAuth2(props)
+const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
+  const oAuth2 = useOAuth2({
+    useLoginMutation: useLoginWithGoogleMutation,
+    onCreateSession: () => {
+      console.log("Session created!")
+    },
+    onRetrieveSession: () => {
+      console.log("Session retrieved!")
+    },
+  })
 
   if (!oAuth2) return <CircularProgress />
 
