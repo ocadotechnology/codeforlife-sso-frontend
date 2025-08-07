@@ -1,4 +1,4 @@
-import { type FC } from "react"
+import { CircularProgress } from "@mui/material"
 
 import {
   LINK_GOOGLE_LOGIN_CLIENT_ID,
@@ -7,20 +7,28 @@ import {
   LINK_GOOGLE_LOGIN_SCOPE,
   LINK_GOOGLE_LOGIN_URL,
 } from "../app/settings"
+import { type UseOAuth2KwArgs, useOAuth2 } from "../app/hooks"
 
-export interface SignInWithGoogleButtonProps {
-  state: string
-}
+export interface SignInWithGoogleButtonProps<ResultType>
+  extends UseOAuth2KwArgs<ResultType> {}
 
 // https://developers.google.com/identity/branding-guidelines#render-html-button
-const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({ state }) => {
+const SignInWithGoogleButton = <ResultType,>(
+  props: SignInWithGoogleButtonProps<ResultType>,
+): JSX.Element => {
+  const oAuth2 = useOAuth2(props)
+
+  if (!oAuth2) return <CircularProgress />
+
   const params: Record<string, string> = {
     client_id: LINK_GOOGLE_LOGIN_CLIENT_ID,
     redirect_uri: LINK_GOOGLE_LOGIN_REDIRECT_URI,
     scope: LINK_GOOGLE_LOGIN_SCOPE,
     response_type: "code",
     access_type: "offline",
-    state,
+    state: oAuth2.state,
+    code_challenge: oAuth2.codeChallenge.value,
+    code_challenge_method: oAuth2.codeChallenge.method,
   }
 
   if (LINK_GOOGLE_LOGIN_PROMPT) {
