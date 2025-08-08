@@ -300,31 +300,24 @@ export function useOAuth2<ResultType>({
         !isLoading &&
         !isError
       ) {
-        console.log({
-          state,
-          codeVerifier,
-          locationState,
-          isLoading,
-          isError,
-        })
-        // login({ code: locationState.code, code_verifier: codeVerifier })
-        //   .unwrap()
-        //   .then(onCreateSession)
-        //   .catch(() => {
-        //     navigate(".", {
-        //       replace: true,
-        //       state: {
-        //         notifications: [
-        //           {
-        //             props: {
-        //               error: true,
-        //               children: "Failed to login. Please try again.",
-        //             },
-        //           },
-        //         ],
-        //       },
-        //     })
-        //   })
+        login({ code: locationState.code, code_verifier: codeVerifier })
+          .unwrap()
+          .then(onCreateSession)
+          .catch(() => {
+            navigate(".", {
+              replace: true,
+              state: {
+                notifications: [
+                  {
+                    props: {
+                      error: true,
+                      children: "Failed to login. Please try again.",
+                    },
+                  },
+                ],
+              },
+            })
+          })
       }
     }
   }, [
