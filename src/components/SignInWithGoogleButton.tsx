@@ -16,6 +16,7 @@ export interface SignInWithGoogleButtonProps {}
 // https://developers.google.com/identity/branding-guidelines#render-html-button
 const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
   const oAuth2 = useOAuth2({
+    provider: "google",
     useLoginMutation: useLoginWithGoogleMutation,
     onCreateSession: () => {
       console.log("Session created!")
@@ -34,7 +35,7 @@ const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
     response_type: "code",
     access_type: "offline",
     state: oAuth2.state,
-    code_challenge: oAuth2.codeChallenge.value,
+    code_challenge: oAuth2.codeChallenge.challenge,
     code_challenge_method: oAuth2.codeChallenge.method,
   }
 

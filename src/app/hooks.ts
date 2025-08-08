@@ -12,7 +12,7 @@ import type { AppDispatch, RootState } from "./store"
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()
 
-export type CodeChallengeMethod = "S256" | "plain"
+export type CodeChallengeMethod = "S256"
 export type CodeChallengeLength =
   | 43
   | 44
@@ -100,13 +100,18 @@ export type CodeChallengeLength =
   | 126
   | 127
   | 128
-export type CodeChallenge = { value: string; method: CodeChallengeMethod }
-export type CodeChallengeAndVerifier = {
-  challenge: CodeChallenge
+export type CodeChallenge = {
   verifier: string
+  challenge: string
+  method: CodeChallengeMethod
 }
 
-export type OAuth2 = { state: string; codeChallenge: CodeChallenge } | undefined
+export type OAuth2 =
+  | {
+      state: string
+      codeChallenge: Pick<CodeChallenge, "challenge" | "method">
+    }
+  | undefined
 export type OAuth2State = { code?: string; state?: string }
 export type OAuth2Code = { code: string; code_verifier: string }
 
@@ -139,63 +144,144 @@ function generateSecureRandomString(
 
 async function generateCodeChallenge(
   length: CodeChallengeLength,
-): Promise<CodeChallengeAndVerifier> {
+): Promise<CodeChallenge> {
   const verifier = generateSecureRandomString(length)
   const data = new TextEncoder().encode(verifier)
   const digest = await window.crypto.subtle.digest("SHA-256", data)
-  const challenge: CodeChallenge = {
-    value: btoa(String.fromCharCode(...new Uint8Array(digest)))
+
+  return {
+    verifier,
+    challenge: btoa(String.fromCharCode(...new Uint8Array(digest)))
       .replace(/\+/g, "-")
       .replace(/\//g, "_")
       .replace(/=+$/, ""),
     method: "S256",
   }
-
-  return { verifier, challenge }
 }
 
 export type UseOAuth2KwArgs<ResultType> = {
+  provider: string
   useLoginMutation: TypedUseMutation<ResultType, OAuth2Code, any>
   onCreateSession: (result: ResultType) => void
   onRetrieveSession: (metadata: SessionMetadata) => void
-  stateLength?: number
-  codeChallengeLength?: CodeChallengeLength
+}
+
+function makeOAuth2StorageKey(provider: string, key: string) {
+  return `oauth2.${provider}.${key}`
+}
+
+export function useOAuth2State(
+  provider: string,
+  length: number = 32,
+  storageKey: string = "state",
+): [string | undefined, () => void] {
+  const oAuth2StorageKey = makeOAuth2StorageKey(provider, storageKey)
+  const storageValue = sessionStorage.getItem(oAuth2StorageKey)
+
+  const [_state, _setState] = useState<string>()
+
+  useEffect(() => {
+    let state: string
+    if (storageValue && storageValue.length === length) {
+      state = storageValue
+    } else {
+      state = generateSecureRandomString(length)
+      sessionStorage.setItem(oAuth2StorageKey, state)
+    }
+
+    _setState(state)
+  }, [oAuth2StorageKey, storageValue, length])
+
+  function resetState() {
+    sessionStorage.removeItem(oAuth2StorageKey)
+    _setState(undefined)
+  }
+
+  return [_state, resetState]
+}
+
+export function useOAuth2CodeChallenge(
+  provider: string,
+  length: CodeChallengeLength = 128,
+  storageKey: string = "codeChallenge",
+): [CodeChallenge | undefined, () => void] {
+  const oAuth2StorageKey = makeOAuth2StorageKey(provider, storageKey)
+  const storageValue = sessionStorage.getItem(oAuth2StorageKey)
+
+  const [_codeChallenge, _setCodeChallenge] = useState<CodeChallenge>()
+
+  useEffect(() => {
+    let codeChallenge: CodeChallenge | undefined
+    if (storageValue) {
+      const storageJsonValue: unknown = JSON.parse(storageValue)
+      if (
+        typeof storageJsonValue === "object" &&
+        storageJsonValue &&
+        "verifier" in storageJsonValue &&
+        typeof storageJsonValue.verifier == "string" &&
+        storageJsonValue.verifier.length === length &&
+        "challenge" in storageJsonValue &&
+        typeof storageJsonValue.challenge === "string" &&
+        "method" in storageJsonValue &&
+        storageJsonValue.method === "S256"
+      ) {
+        codeChallenge = {
+          verifier: storageJsonValue.verifier,
+          challenge: storageJsonValue.challenge,
+          method: storageJsonValue.method,
+        }
+      }
+    }
+
+    if (codeChallenge) _setCodeChallenge(codeChallenge)
+    else {
+      generateCodeChallenge(length)
+        .then(codeChallenge => {
+          sessionStorage.setItem(
+            oAuth2StorageKey,
+            JSON.stringify(codeChallenge),
+          )
+
+          _setCodeChallenge(codeChallenge)
+        })
+        .catch(error => {
+          if (error) console.error(error)
+        })
+    }
+  }, [oAuth2StorageKey, storageValue, length])
+
+  function resetCodeChallenge() {
+    sessionStorage.removeItem(oAuth2StorageKey)
+    _setCodeChallenge(undefined)
+  }
+
+  return [_codeChallenge, resetCodeChallenge]
 }
 
 // https://datatracker.ietf.org/doc/html/rfc7636#section-1
 export function useOAuth2<ResultType>({
+  provider,
   useLoginMutation,
   onCreateSession,
   onRetrieveSession,
-  stateLength = 32,
-  codeChallengeLength = 128,
 }: UseOAuth2KwArgs<ResultType>): OAuth2 {
+  const [state, resetState] = useOAuth2State(provider)
+  const [
+    {
+      verifier: codeVerifier,
+      challenge: codeChallenge,
+      method: codeChallengeMethod,
+    } = {},
+    resetCodeChallenge,
+  ] = useOAuth2CodeChallenge(provider)
   const [login, { isLoading, isError }] = useLoginMutation()
   const sessionMetadata = useSessionMetadata()
   const navigate = useNavigate()
   const searchParams =
     useSearchParams({ code: yup.string(), state: yup.string() }) || {}
   const location = useLocation<OAuth2State>()
-  const [
-    {
-      code: { verifier: codeVerifier, challenge: codeChallenge } = {},
-      state,
-    } = {},
-    setOAuth2,
-  ] = useState<{ code: CodeChallengeAndVerifier; state: string }>()
 
   const locationState = location.state || {}
-
-  useEffect(() => {
-    generateCodeChallenge(codeChallengeLength)
-      .then(code => {
-        setOAuth2({
-          code,
-          state: generateSecureRandomString(stateLength),
-        })
-      })
-      .catch(() => {})
-  }, [stateLength, codeChallengeLength])
 
   useEffect(() => {
     if (sessionMetadata) onRetrieveSession(sessionMetadata)
@@ -205,32 +291,41 @@ export function useOAuth2<ResultType>({
         next: false,
         state: { code: searchParams.code, state: searchParams.state },
       })
-    } else if (
-      state &&
-      codeVerifier &&
-      locationState.code &&
-      locationState.state === state &&
-      !isLoading &&
-      !isError
-    ) {
-      login({ code: locationState.code, code_verifier: codeVerifier })
-        .unwrap()
-        .then(onCreateSession)
-        .catch(() => {
-          navigate(".", {
-            replace: true,
-            state: {
-              notifications: [
-                {
-                  props: {
-                    error: true,
-                    children: "Failed to login. Please try again.",
-                  },
-                },
-              ],
-            },
-          })
+    } else {
+      if (
+        state &&
+        codeVerifier &&
+        locationState.code &&
+        locationState.state === state &&
+        !isLoading &&
+        !isError
+      ) {
+        console.log({
+          state,
+          codeVerifier,
+          locationState,
+          isLoading,
+          isError,
         })
+        // login({ code: locationState.code, code_verifier: codeVerifier })
+        //   .unwrap()
+        //   .then(onCreateSession)
+        //   .catch(() => {
+        //     navigate(".", {
+        //       replace: true,
+        //       state: {
+        //         notifications: [
+        //           {
+        //             props: {
+        //               error: true,
+        //               children: "Failed to login. Please try again.",
+        //             },
+        //           },
+        //         ],
+        //       },
+        //     })
+        //   })
+      }
     }
   }, [
     sessionMetadata,
@@ -251,5 +346,13 @@ export function useOAuth2<ResultType>({
     onRetrieveSession,
   ])
 
-  return state && codeChallenge ? { state, codeChallenge } : undefined
+  return state && codeChallenge && codeChallengeMethod
+    ? {
+        state,
+        codeChallenge: {
+          challenge: codeChallenge,
+          method: codeChallengeMethod,
+        },
+      }
+    : undefined
 }
