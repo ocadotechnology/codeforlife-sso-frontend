@@ -2,10 +2,10 @@ import * as pages from "codeforlife/components/page"
 import { Stack, Typography } from "@mui/material"
 import { type FC } from "react"
 import { Image } from "codeforlife/components"
+import { type OAuth2State } from "codeforlife/utils/auth"
 
 import CflLogoImage from "../../images/cfl_logo.png"
 import { LINK_CFL } from "../../app/settings"
-import { type OAuth2State } from "../../app/hooks"
 import { SignInWithGoogleButton } from "../../components"
 
 export interface HomeState extends OAuth2State {}

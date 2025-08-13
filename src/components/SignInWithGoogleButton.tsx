@@ -1,5 +1,6 @@
 import { CircularProgress } from "@mui/material"
 import { type FC } from "react"
+import { useOAuth2 } from "codeforlife/hooks"
 
 import {
   LINK_GOOGLE_LOGIN_CLIENT_ID,
@@ -9,14 +10,20 @@ import {
   LINK_GOOGLE_LOGIN_URL,
 } from "../app/settings"
 import { useLoginWithGoogleMutation } from "../api/session"
-import { useOAuth2 } from "../app/hooks"
 
 export interface SignInWithGoogleButtonProps {}
 
 // https://developers.google.com/identity/branding-guidelines#render-html-button
 const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
-  const oAuth2 = useOAuth2({
+  const [google_auth_link] = useOAuth2({
     provider: "google",
+    authUri: LINK_GOOGLE_LOGIN_URL,
+    clientId: LINK_GOOGLE_LOGIN_CLIENT_ID,
+    redirectUri: LINK_GOOGLE_LOGIN_REDIRECT_URI,
+    scope: LINK_GOOGLE_LOGIN_SCOPE,
+    responseType: "code",
+    accessType: "offline",
+    prompt: LINK_GOOGLE_LOGIN_PROMPT,
     useLoginMutation: useLoginWithGoogleMutation,
     onCreateSession: () => {
       console.log("Session created!")
@@ -26,25 +33,7 @@ const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
     },
   })
 
-  if (!oAuth2) return <CircularProgress />
-
-  const params: Record<string, string> = {
-    client_id: LINK_GOOGLE_LOGIN_CLIENT_ID,
-    redirect_uri: LINK_GOOGLE_LOGIN_REDIRECT_URI,
-    scope: LINK_GOOGLE_LOGIN_SCOPE,
-    response_type: "code",
-    access_type: "offline",
-    state: oAuth2.state,
-    code_challenge: oAuth2.codeChallenge.challenge,
-    code_challenge_method: oAuth2.codeChallenge.method,
-  }
-
-  if (LINK_GOOGLE_LOGIN_PROMPT) {
-    params["prompt"] = LINK_GOOGLE_LOGIN_PROMPT
-  }
-
-  const google_login_link =
-    LINK_GOOGLE_LOGIN_URL + "?" + new URLSearchParams(params).toString()
+  if (!google_auth_link) return <CircularProgress />
 
   return (
     <>
@@ -156,7 +145,7 @@ const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = () => {
       <button
         className="gsi-material-button"
         onClick={() => {
-          window.location.href = google_login_link
+          window.location.href = google_auth_link
         }}
       >
         <div className="gsi-material-button-state"></div>
