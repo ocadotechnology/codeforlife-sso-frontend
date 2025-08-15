@@ -1,8 +1,6 @@
 import { createApi } from "codeforlife/api"
 
-const api = createApi({
-  tagTypes: ["Fruit"],
-})
+const api = createApi()
 
 export default api
 export const { useLogoutMutation } = api

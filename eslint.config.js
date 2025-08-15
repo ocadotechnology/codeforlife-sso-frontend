@@ -4,7 +4,7 @@ import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
 import prettier from "eslint-plugin-prettier"
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
+import eslintConfigPrettier from "eslint-config-prettier/flat"
 import tseslint from "typescript-eslint"
 
 // https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts
@@ -15,7 +15,7 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
-      eslintPluginPrettierRecommended,
+      eslintConfigPrettier,
     ],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {

@@ -1,2 +1,2 @@
-export { default as FruitNameField } from "./FruitNameField"
-export * from "./FruitNameField"
+export { default as SignInWithGoogleButton } from "./SignInWithGoogleButton"
+export * from "./SignInWithGoogleButton"
