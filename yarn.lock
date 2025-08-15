@@ -2692,10 +2692,10 @@ clsx@^2.1.0, clsx@^2.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
-codeforlife@2.6.17:
-  version "2.6.17"
-  resolved "https://registry.yarnpkg.com/codeforlife/-/codeforlife-2.6.17.tgz#9c7cb53f25e362f14fb21a5c8ec4c5599b5e5ac7"
-  integrity sha512-DDXSqG4hTPi5/3cKkWumrWkO2lwjekO3UqA8n9EitDUhupu4f7SNz+QbagdmhAzPQmS69ccnTvZu0E70eSbwMg==
+codeforlife@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/codeforlife/-/codeforlife-2.7.0.tgz#d1af9be4e98612cf3c67139a42c48cc21838c2a2"
+  integrity sha512-O/9XoXjiYCihl6XWUK4bjGzGBJPFIt2TOD+evIdycQHOpQLxRvHFksDgptOqBZoTrCnaoZRiFBETf8fJxsWFDg==
   dependencies:
     "@emotion/react" "^11.10.6"
     "@emotion/styled" "^11.10.6"

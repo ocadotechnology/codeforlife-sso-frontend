@@ -7,10 +7,10 @@ import {
   type User,
 } from "codeforlife/api"
 import { type Arg } from "codeforlife/utils/api"
+import { type ExchangeOAuth2CodeArg } from "codeforlife/api/endpoints"
 import { type SessionMetadata } from "codeforlife/hooks"
 import { buildLoginEndpoint } from "codeforlife/api/endpoints"
 
-import { type OAuth2CodeExchangeArg } from "../app/hooks"
 import api from "."
 
 const baseUrl = "session/"
@@ -36,7 +36,7 @@ export type AutoLoginAsStudentArg = {
 }
 
 export type LoginWithGoogleResult = SessionMetadata
-export type LoginWithGoogleArg = OAuth2CodeExchangeArg
+export type LoginWithGoogleArg = ExchangeOAuth2CodeArg
 
 const sessionApi = api.injectEndpoints({
   endpoints: build => ({
