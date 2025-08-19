@@ -1,2 +1,4 @@
-export { default as SignInWithGoogleButton } from "./SignInWithGoogleButton"
-export * from "./SignInWithGoogleButton"
+export {
+  default as SignInWithGoogleButton,
+  type SignInWithGoogleButtonProps,
+} from "./SignInWithGoogleButton"
