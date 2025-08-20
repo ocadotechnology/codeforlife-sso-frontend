@@ -1,11 +1,4 @@
 {
-  "//": [
-    "Based off of:",
-    "https://github.com/vitejs/vite/blob/main/packages/create-vite/template-react-ts/package.json",
-    "Dependency rules:",
-    "🚫 Don't add `dependencies` below that are inherited from the CFL package.",
-    "✅ Do add `devDependencies` below that are `peerDependencies` in the CFL package."
-  ],
   "name": "sso",
   "private": true,
   "version": "0.0.0",
@@ -13,28 +6,17 @@
   "scripts": {
     "cli": "../scripts/frontend $@"
   },
+  "//": [
+    "Dependency rules:",
+    "🚫 Don't add `dependencies` that are inherited from the CFL package.",
+    "✅ Do add `dependencies` that are unique to this service.",
+    "🚫 Don't add `devDependencies` that are inherited from the CFL workspace.",
+    "✅ Do add `devDependencies` that are unique to this service."
+  ],
   "dependencies": {
     "codeforlife": "2.7.0"
   },
   "devDependencies": {
-    "@codeforlife/workspace": "link:../configs/frontend",
-    "@testing-library/dom": "^9.3.4",
-    "@testing-library/jest-dom": "^6.2.0",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.12",
-    "@types/js-cookie": "^3.0.3",
-    "@types/node": "^22.14.1",
-    "@types/qs": "^6.9.7",
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-istanbul": "^1.6.0",
-    "@vitest/ui": "^1.6.0",
-    "jsdom": "^23.2.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vitest": "^1.2.0"
+    "@codeforlife/workspace": "link:../configs/frontend"
   }
 }
