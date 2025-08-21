@@ -5,6 +5,6 @@
  * The entrypoint to our app.
  */
 
-import Server from "codeforlife/src/server.js"
+import Server from "codeforlife/server"
 
 new Server().run()
