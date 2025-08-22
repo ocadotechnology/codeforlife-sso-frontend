@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/ocadotechnology/codeforlife-sso-frontend/compare/v1.0.0...v1.1.0) (2025-08-22)
+
+
+### Features
+
+* Workspace 275 ([#11](https://github.com/ocadotechnology/codeforlife-sso-frontend/issues/11)) ([e49aefb](https://github.com/ocadotechnology/codeforlife-sso-frontend/commit/e49aefb860669e32bd2487131fc4a1c2118040d3))
+
 # 1.0.0 (2025-08-15)
 
 
