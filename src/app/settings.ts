@@ -1,4 +1,4 @@
-import env from "codeforlife/settings"
+import vite from "codeforlife/settings"
 
 export * from "codeforlife/settings"
 
@@ -10,4 +10,4 @@ export const {
   LINK_GOOGLE_LOGIN_CLIENT_ID,
   LINK_GOOGLE_LOGIN_REDIRECT_URI,
   LINK_GOOGLE_LOGIN_PROMPT = "",
-} = env.vite
+} = vite
