@@ -1,4 +1,4 @@
 {
-  "extends": "../configs/frontend/tsconfig.app.json",
+  "extends": "./node_modules/@codeforlife/workspace/tsconfig.app.json",
   "include": ["src"]
 }

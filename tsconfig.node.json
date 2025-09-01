@@ -1,4 +1,4 @@
 {
-  "extends": "../configs/frontend/tsconfig.node.json",
+  "extends": "./node_modules/@codeforlife/workspace/tsconfig.node.json",
   "include": ["./node_modules/@codeforlife/workspace/vite.config.ts"]
 }
