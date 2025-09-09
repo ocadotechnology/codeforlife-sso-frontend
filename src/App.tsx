@@ -1,3 +1,4 @@
+import "codeforlife/style.css"
 import { App as _App, type AppProps as _AppProps } from "codeforlife/components"
 import { type FC } from "react"
 
