@@ -258,7 +258,7 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@codeforlife/workspace@link:../configs/frontend":
+"@codeforlife/workspace@link:..":
   version "0.0.0"
   uid ""
 

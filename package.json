@@ -4,7 +4,7 @@
   "version": "1.1.1",
   "type": "module",
   "scripts": {
-    "scripts": "../scripts/frontend"
+    "scripts": "../scripts"
   },
   "//": [
     "Dependency rules:",
@@ -17,6 +17,6 @@
     "codeforlife": "2.9.2"
   },
   "devDependencies": {
-    "@codeforlife/workspace": "link:../configs/frontend"
+    "@codeforlife/workspace": "link:.."
   }
 }
