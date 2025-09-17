@@ -14,7 +14,7 @@
     "✅ Do add `devDependencies` that are unique to this service."
   ],
   "dependencies": {
-    "codeforlife": "github:ocadotechnology/codeforlife-package-javascript#upgrade_react"
+    "codeforlife": "2.10.2"
   },
   "devDependencies": {
     "@codeforlife/workspace": "link:.."

@@ -1813,9 +1813,10 @@ clsx@^2.1.0, clsx@^2.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
-"codeforlife@github:ocadotechnology/codeforlife-package-javascript#upgrade_react":
-  version "2.10.1"
-  resolved "https://codeload.github.com/ocadotechnology/codeforlife-package-javascript/tar.gz/6ac7659933eec472464124f911ce60312826533e"
+codeforlife@2.10.2:
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/codeforlife/-/codeforlife-2.10.2.tgz#6586d32733eefcd62de19ec2329858d179f388d6"
+  integrity sha512-LE7JxaCGvu1L7Dnm9uUHeyh8zY6jAI8M3GeyelI2J0eT9fqKiH51g1hI/iBuvJUtTXTc2sJGKQRJNNWoXBqLwA==
   dependencies:
     "@emotion/react" "^11.10.6"
     "@emotion/styled" "^11.10.6"
