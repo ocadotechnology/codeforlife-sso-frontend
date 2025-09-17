@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/ocadotechnology/codeforlife-sso-frontend/compare/v1.1.1...v1.1.2) (2025-09-17)
+
+
+### Bug Fixes
+
+* Upgrade react ([#13](https://github.com/ocadotechnology/codeforlife-sso-frontend/issues/13)) ([f23de75](https://github.com/ocadotechnology/codeforlife-sso-frontend/commit/f23de75df5712dcdda26c558630b49a032a4f4cb))
+
 ## [1.1.1](https://github.com/ocadotechnology/codeforlife-sso-frontend/compare/v1.1.0...v1.1.1) (2025-08-22)
 
 
