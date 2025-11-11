@@ -1,4 +1,3 @@
-import "codeforlife/style.css"
 import { type EntryAppProps } from "codeforlife/server/entry"
 import { type FC } from "react"
 import _App from "codeforlife/server/App"
