@@ -1,4 +1,4 @@
-import vite from "codeforlife/settings"
+import { vite } from "codeforlife/settings"
 
 export * from "codeforlife/settings"
 

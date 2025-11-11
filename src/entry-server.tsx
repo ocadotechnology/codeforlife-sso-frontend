@@ -1,14 +1,6 @@
-import { StrictMode } from "react"
-import { renderToString } from "react-dom/server"
+import { server } from "codeforlife/server/entry"
 
 import App from "./App"
+import routes from "./routes"
 
-export function render(path: string) {
-  return {
-    html: renderToString(
-      <StrictMode>
-        <App path={path} />
-      </StrictMode>,
-    ),
-  }
-}
+export const { render } = await server({ App, routes })

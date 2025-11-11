@@ -1,15 +1,15 @@
 import "codeforlife/style.css"
-import { App as _App, type AppProps as _AppProps } from "codeforlife/components"
+import { type EntryAppProps } from "codeforlife/server/entry"
 import { type FC } from "react"
+import _App from "codeforlife/server/App"
 
-import routes from "./routes"
 import store from "./app/store"
 import theme from "./app/theme"
 
-export interface AppProps extends Pick<_AppProps, "path"> {}
+export interface AppProps extends EntryAppProps {}
 
 const App: FC<AppProps> = props => (
-  <_App store={store} theme={theme} routes={routes} {...props} />
+  <_App store={store} theme={theme} {...props} />
 )
 
 export default App

@@ -1,11 +1,6 @@
-import { StrictMode } from "react"
-import { hydrateRoot } from "react-dom/client"
+import { client } from "codeforlife/server/entry"
 
 import App from "./App"
+import routes from "./routes"
 
-hydrateRoot(
-  document.getElementById("root") as HTMLElement,
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+await client({ App, routes })
