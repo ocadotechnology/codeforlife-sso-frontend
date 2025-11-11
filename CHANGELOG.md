@@ -1,3 +1,11 @@
+## [1.1.3](https://github.com/ocadotechnology/codeforlife-sso-frontend/compare/v1.1.2...v1.1.3) (2025-11-11)
+
+
+### Bug Fixes
+
+* Install latest package ([62db6a5](https://github.com/ocadotechnology/codeforlife-sso-frontend/commit/62db6a5b4ad2e7ebc7028a1c7592c7adc4e7b13b))
+* Remove css import ([09e9235](https://github.com/ocadotechnology/codeforlife-sso-frontend/commit/09e9235c5c5e3689865ba4e8392ce36901c01118))
+
 ## [1.1.2](https://github.com/ocadotechnology/codeforlife-sso-frontend/compare/v1.1.1...v1.1.2) (2025-09-17)
 
 
