@@ -14,7 +14,7 @@
     "✅ Do add `devDependencies` that are unique to this service."
   ],
   "dependencies": {
-    "codeforlife": "2.12.3"
+    "codeforlife": "2.12.4"
   },
   "devDependencies": {
     "@codeforlife/workspace": "link:.workspace/frontend"
